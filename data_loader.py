@@ -1,7 +1,8 @@
 # encoding: utf-8
 
-import torch
 import random
+
+import torch
 from torchvision import datasets, transforms
 
 def get_train_loader(args):

@@ -1,15 +1,17 @@
 # encoding: utf-8
 
 import os
-import torch
 import random
 import argparse
-import mnist_model
-import data_loader
+
+import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.autograd import Variable
+
+import data_loader
+import mnist_model
 
 # Training settings
 parser = argparse.ArgumentParser()
@@ -20,7 +22,7 @@ parser.add_argument('--lr', type = float, default = 0.01)
 parser.add_argument('--momentum', type=float, default = 0.5)
 parser.add_argument('--no-cuda', action = 'store_true', default = False)
 parser.add_argument('--seed', type = int, default = 1)
-parser.add_argument('--log-interval', type = int, default = 10)
+parser.add_argument('--log-interval', type = int, default = 100)
 parser.add_argument('--save-interval', type = int, default = 100)
 parser.add_argument('--model', required = True)
 parser.add_argument('--angle', type = int, default=60)
@@ -41,9 +43,10 @@ model = mnist_model.get_model(args)
 if args.cuda:
     model.cuda()
 
-optimizer = optim.SGD(model.parameters(), lr = args.lr, momentum = args.momentum)
 train_loader = data_loader.get_train_loader(args)
 test_loader = data_loader.get_test_loader(args)
+
+optimizer = optim.SGD(model.parameters(), lr = args.lr, momentum = args.momentum)
 
 def train(epoch):
     model.train()

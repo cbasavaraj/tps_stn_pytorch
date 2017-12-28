@@ -2,17 +2,23 @@
 
 import os
 import glob
-import torch
 import random
 import argparse
-import mnist_model
-import data_loader
+
 import numpy as np
+
+from PIL import Image, ImageDraw, ImageFont
+
+import torch
+from torch.autograd import Variable
+from torchvision import datasets, transforms
+
+import data_loader
+import mnist_model
+
 from mnist_model import STNClsNet
 from grid_sample import grid_sample
-from torch.autograd import Variable
-from PIL import Image, ImageDraw, ImageFont
-from torchvision import datasets, transforms
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--batch-size', type = int, default = 64)
