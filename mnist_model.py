@@ -99,8 +99,8 @@ class STNClsNet(nn.Module):
 
     def forward(self, x):
         batch_size = x.size(0)
-        source_control_points = self.loc_net(x)
-        source_coordinate = self.tps(source_control_points)
+        source_control_points = self.loc_net(x) # theta from localisation net
+        source_coordinate = self.tps(source_control_points) # grid generate + multiply by M
         grid = source_coordinate.view(batch_size, self.args.image_height, self.args.image_width, 2)
         transformed_x = grid_sample(x, grid)
         logit = self.cls_net(transformed_x)
